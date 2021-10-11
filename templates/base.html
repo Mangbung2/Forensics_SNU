@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!--메타 태그-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--부트스트랩CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!--bss css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Forensics_SNU</title>
+</head>
+<body>
+    <!--네비게이션 바-->
+    {% include "navbar.html" %}
+    <!--Body 내용 블록 시작-->
+    {% block content %}
+    {% endblock %}
+    <!--Body 내용 블록 끝-->
+
+    <!--jQuery-->
+    <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+    <!--부트스트랩JS-->
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    <!--자바스크립트 시작-->
+    {% block script %}
+    {% endblock %}
+</body>
+</html>

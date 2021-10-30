@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
@@ -45,7 +44,7 @@ def question_modify(request, question_id):
             question.save()
             return redirect('bbs:detail', question_id=question.id)
     else:
-        form = QuestionForm(request.POST, instance=question)
+        form = QuestionForm(instance=question)
     context = {'form':form}
     return render(
         request, 

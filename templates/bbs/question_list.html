@@ -32,7 +32,7 @@
                         <comment style="color: tomato;">[{{question.answer_set.count}}]</comment> 
                         {% endif %}
                         <br>
-                        게시글내용
+                        {{question.content|truncatechars:20}}
                     </a>
                     <p class="post-meta">
                         Posted by

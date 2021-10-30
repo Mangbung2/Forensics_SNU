@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from ..models import Question
 
+
 def index(request):
     #입력인자
     page = request.GET.get('page', '1')
@@ -24,7 +25,7 @@ def index(request):
         ).distinct()
 
     #페이징 처리
-    paginator = Paginator(question_list, 10) #페이지당 10개
+    paginator = Paginator(question_list, 5) #페이지당 5개
     page_obj = paginator.get_page(page)
 
     context = {'question_list' : page_obj, 'page':page, 'kw':kw, 'so':so}

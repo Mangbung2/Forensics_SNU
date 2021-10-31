@@ -43,3 +43,9 @@ def detail(request, question_id):
         'bbs/question_detail.html',
         context
     )
+
+def function(request):
+    return render(
+        request,
+        'bbs/function.html'
+    )

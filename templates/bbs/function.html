@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load bbs_filter %}
+{% block content %}
+
+    <!--메인콘텐츠 시작-->
+    <div class="container px-4 px-lg-5" style="margin-top: 10px;">
+        <div class="card">
+            <div class="card-body">
+            <!--Blood-saliva-buccal swab models INPUT TABLE-->
+            <table class="table table-bordered" style="margin-top: 10px;">
+                <caption style="color:black; font-weight: bold; caption-side: top;">
+                    Blood-saliva-buccal swab models
+                </caption>
+                <thead>
+                <tr align ="center">
+                    <th scope="col">        
+                    </th>
+                    <th scope="col" colspan="2">ELOVL2</th>
+                    <th scope="col" colspan="2">FHL2</th>
+                    <th scope="col" colspan="2">KLF14</th>
+                    <th scope="col" colspan="2">MIR29B2CHG</th>
+                    <th scope="col" colspan="2">TRIM59	</th>
+                </tr>
+                <tr align ="center">
+                    <th scope="col">        
+                        <!--방식 선택-->
+                        <select class="form-control so" style="width:fit-content;">
+                            <option value="CE Option" {% if so == 'CE Option' %}selected{% endif %}>CE Option</option>
+                            <option value="3130" {% if so == '3130' %}selected{% endif %}>3130</option>
+                            <option value="3500" {% if so == '3500' %}selected{% endif %}>3500</option>
+                            <option value="SeqStudio" {% if so == 'SeqStudio' %}selected{% endif %}>SeqStudio</option>
+                        </select>
+                    </th>
+                    <th scope="col">Input</th>
+                    <th scope="col">A.methyl.</th>
+                    <th scope="col">Input</th>
+                    <th scope="col">A.methyl.</th>
+                    <th scope="col">Input</th>
+                    <th scope="col">A.methyl.</th>
+                    <th scope="col">Input</th>
+                    <th scope="col">A.methyl.</th>
+                    <th scope="col">Input</th>
+                    <th scope="col">A.methyl.</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr align ="center"><!--값들-->
+                    <th scope="row">input</th>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                </tr>
+                </tbody>
+            </table>
+                <button type="button" class="btn btn-outline-info" onclick="age_prediction()">calculate</button><!--Blood-saliva-buccal swab models수정-->
+
+        <!--RESULT TABLE-->
+        <table class="table table-bordered" style="margin-top: 10px;">
+            <caption style="color:black; font-weight: bold; caption-side: top;">
+                Output-Adjusted Model
+            </caption>
+            <thead>
+            <tr align ="center">
+                <th scope="col" colspan="3">Estimated Age (years)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr align ="center">
+                <td>blood</td>
+                <td>Saliva</td>
+                <td>Tissue-combined model</td>
+            </tr>
+            <tr align ="center">
+                <td><input type="number" id="blood" placeholder="blood" readonly></td>
+                <td><input type="number" id="Saliva" placeholder="Saliva" readonly></td>
+                <td><input type="number" id="Tissue-combined model" placeholder="Tissue-combined model" readonly></td>
+            </tr>
+            </tbody>
+        </table>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="container px-4 px-lg-5" style="margin-top: 10px;">
+        <div class="card">
+            <div class="card-body">
+        <!--Semen Model INPUT TABLE-->
+        <!--46.24+(-51.9)*cg06304190+(-17.8)*cg12837463+54.1*cg06979108-->
+        <table class="table table-bordered" style="margin-top: 10px;">
+            <caption style="color:black; font-weight: bold; caption-side: top;">
+                Semen Model
+            </caption>
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">cg06304190</th>
+                <th scope="col">cg12837463</th>
+                <th scope="col">cg06979108</th>
+                <th scope="col">age_prediction</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">input</th>
+                <td><input type="number" id="cg06304190" placeholder="0" value="0"></td>
+                <td><input type="number" id="cg12837463" placeholder="0" value="0"></td>
+                <td><input type="number" id="cg06979108" placeholder="0" value="0"></td>
+                <td><input type="number" id="age_prediction" placeholder="age_prediction" readonly></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-outline-info" onclick="age_prediction()">calculate</button>
+            </div>
+        </div>
+    </div>
+    <!--아래공간-->
+    <div style="padding: 50px;"></div>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+        //46.24+(-51.9)*cg06304190+(-17.8)*cg12837463+54.1*cg06979108
+        function age_prediction(){
+            var cg06304190 = document.getElementById('cg06304190').value;
+            var cg12837463 = document.getElementById('cg12837463').value;
+            var cg06979108 = document.getElementById('cg06979108').value;
+            var result = 46.24+(-51.9)*cg06304190+(-17.8)*cg12837463+54.1*cg06979108;
+            document.getElementById('age_prediction').value = result.toFixed(2);
+        }
+
+</script>
+{% endblock %}

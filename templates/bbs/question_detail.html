@@ -85,7 +85,7 @@
                 {{answer.content|mark}}
             </div>
             <div class="d-flex justify-content-end">
-                {% if answer.modify_date %}
+                <!-- {% if answer.modify_date %}
                 <div class="badge badge-light p-2 text-left mx-3">
                     <div class="mb-2">
                         수정일시
@@ -94,7 +94,7 @@
                         {{answer.modify_date}}
                     </div>
                 </div>
-                {% endif %}
+                {% endif %} -->
                 <div class="badge badge-light p-2 text-left">
                     <div class="mb-2">
                         {{answer.author.username}}
@@ -124,10 +124,10 @@
                         {{comment.content}}
                     </span>
                     <span>
-                        - {{comment.author}}, {{comment.create_date}}
-                        {% if comment.modify_date %}
+                        ● {{comment.author}}, {{comment.create_date}}
+                        <!-- {% if comment.modify_date %}
                         (수정 : {{comment.modify_date}})
-                        {% endif %}
+                        {% endif %} -->
                     </span>
                     {% if request.user == comment.author %}
                     <a href="{% url 'bbs:comment_modify_answer' comment.id %}" class="small">

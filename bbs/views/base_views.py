@@ -35,6 +35,12 @@ def index(request):
         context
         )
 
+def intro(request):
+    return render(
+        request,
+        'bbs/intro.html'
+    )
+
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     context = {'question':question}

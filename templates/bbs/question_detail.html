@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load bbs_filter %}
 {% block content %}
-<div class="container my-3">
+<div class="container px-4 px-lg-5" style="width: 70%;margin-top: 10px;">
     <h2 class="vorder-bottom py-2">
         {{question.subject}}
     </h2>
@@ -12,16 +12,10 @@
             </div>
             <div class="d-flex justify-content-end">
                 <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">
-                        {{question.author.username}}
-                    </div>
-                    <div>
+                        작성자 : {{question.author.username}}<br>
                         작성일시 : {{question.create_date}}
-                    </div>
                     {% if question.modify_date %}
-                    <div class="mb-2">
-                        수정일시 : {{question.modify_date}}
-                    </div>
+                        <br>수정일시 : {{question.modify_date}}
                     {% endif %}
                 </div>
             </div>
@@ -91,12 +85,8 @@
                 </div>
                 {% endif %} -->
                 <div class="badge badge-light p-2 text-left">
-                    <div class="mb-2">
-                        {{answer.author.username}}
-                    </div>
-                    <div>
+                        작성자 : {{answer.author.username}}<br>
                         작성일시 : {{answer.create_date}}
-                    </div>
                 </div>
             </div>
             {% if request.user == answer.author %}

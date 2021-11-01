@@ -171,4 +171,11 @@ $(document).ready(function(){
     });
 });
 </script>
+<!--simplemde-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+    var simplemde_content = new SimpleMDE({spellChecker: false,  element: document.getElementById("content") });
+    simplemde_content.value();
+</script>
 {% endblock %}

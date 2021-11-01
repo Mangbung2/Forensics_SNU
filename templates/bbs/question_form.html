@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container px-4 px-lg-5" style="margin-top: 10px;">
     <h5 class="my-3 border-bottom pb-2">
         질문등록
@@ -40,4 +39,11 @@
         </button>
     </form>
 </div>
+<!--simplemde-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>
+    var simplemde_content = new SimpleMDE({spellChecker: false,  element: document.getElementById("content") });
+    simplemde_content.value();
+</script>
 {% endblock %}

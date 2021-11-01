@@ -11,16 +11,6 @@
                 {{question.content|mark}}
             </div>
             <div class="d-flex justify-content-end">
-                {% if question.modify_date %}
-                <div class="badge badge-light p-2 text-left mx-3">
-                    <div class="mb-2">
-                        수정일시
-                    </div>
-                    <div>
-                        {{question.modify_date}}
-                    </div>
-                </div>
-                {% endif %}
                 <div class="badge badge-light p-2 text-left">
                     <div class="mb-2">
                         {{question.author.username}}
@@ -28,6 +18,11 @@
                     <div>
                         작성일시 : {{question.create_date}}
                     </div>
+                    {% if question.modify_date %}
+                    <div class="mb-2">
+                        수정일시 : {{question.modify_date}}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% if request.user == question.author %}

@@ -5,7 +5,7 @@
     <!--메인콘텐츠 시작-->
     <div class="container px-4 px-lg-5" style="margin-top: 10px;">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" style="overflow: auto">
             <!--Blood-saliva-buccal swab models INPUT TABLE-->
             <table class="table table-bordered" style="margin-top: 10px;">
                 <caption style="color:black; font-weight: bold; caption-side: top;">
@@ -21,14 +21,15 @@
                     <th scope="col" colspan="2">MIR29B2CHG</th>
                     <th scope="col" colspan="2">TRIM59	</th>
                 </tr>
-                <tr align ="center">
+                <tr align ="center"">
                     <th scope="col">        
                         <!--방식 선택-->
-                        <select class="form-control so" style="width:fit-content;">
-                            <option value="CE Option" {% if so == 'CE Option' %}selected{% endif %}>CE Option</option>
-                            <option value="3130" {% if so == '3130' %}selected{% endif %}>3130</option>
-                            <option value="3500" {% if so == '3500' %}selected{% endif %}>3500</option>
-                            <option value="SeqStudio" {% if so == 'SeqStudio' %}selected{% endif %}>SeqStudio</option>
+                        <!--ce_option-->
+                        <select class="form-control ce_option" style="width:fit-content; font-size: 10px;">
+                            <option value="CE_Option" {% if ce_option == 'CE_Option' %}selected{% endif %}>CE Option</option>
+                            <option value="3130" {% if ce_option == '3130' %}selected{% endif %}>3130</option>
+                            <option value="3500" {% if ce_option == '3500' %}selected{% endif %}>3500</option>
+                            <option value="SeqStudio" {% if ce_option == 'SeqStudio' %}selected{% endif %}>SeqStudio</option>
                         </select>
                     </th>
                     <th scope="col">Input</th>
@@ -44,22 +45,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr align ="center"><!--값들-->
+                <tr align ="center"><!--값들input, A.methyl 1~5-->
                     <th scope="row">input</th>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
-                    <td><input type="number" id="" placeholder="0" value="0" style="width: 50px;"></td>
+                    <td><input type="number" id="input1" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                    <td><input type="number" id="a_methyl1" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                    <td><input type="number" id="input2" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                    <td><input type="number" id="a_methyl2" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                    <td><input type="number" id="input3" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                    <td><input type="number" id="a_methyl3" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                    <td><input type="number" id="input4" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                    <td><input type="number" id="a_methyl4" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                    <td><input type="number" id="input5" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                    <td><input type="number" id="a_methyl5" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
                 </tr>
                 </tbody>
             </table>
-                <button type="button" class="btn btn-outline-info" onclick="age_prediction()">calculate</button><!--Blood-saliva-buccal swab models수정-->
+                <!--Blood-saliva-buccal swab models 실행-->
+                <button type="button" class="btn btn-outline-info" onclick="Bsbsmodels()">calculate</button>
 
         <!--RESULT TABLE-->
         <table class="table table-bordered" style="margin-top: 10px;">
@@ -79,8 +81,8 @@
             </tr>
             <tr align ="center">
                 <td><input type="number" id="blood" placeholder="blood" readonly></td>
-                <td><input type="number" id="Saliva" placeholder="Saliva" readonly></td>
-                <td><input type="number" id="Tissue-combined model" placeholder="Tissue-combined model" readonly></td>
+                <td><input type="number" id="saliva" placeholder="Saliva" readonly></td>
+                <td><input type="number" id="tcmodel" placeholder="Tissue-combined model" readonly></td>
             </tr>
             </tbody>
         </table>
@@ -123,10 +125,85 @@
     </div>
     <!--아래공간-->
     <div style="padding: 50px;"></div>
+    <form id="searchForm" method="get" action="{% url 'bbs:function' %}">
+        <input type="hidden" id="ce_option" name="ce_option" value="{{ ce_option }}">
+    </form>
 {% endblock %}
 
 {% block script %}
 <script type='text/javascript'>
+        //Blood-saliva-buccal swab models
+        $(document).ready(function(){
+            $(".ce_option").on('change', function() {
+                $("#ce_option").val($(this).val());
+                $("#searchForm").submit();
+            });
+        });
+
+        function Bsbsmodels(){
+            //값할당 받기
+            var ce_option = document.getElementById('ce_option').value;
+            var input1 = document.getElementById('input1').value;//EVOLV2
+            var input2 = document.getElementById('input2').value;//FHL2
+            var input3 = document.getElementById('input3').value;//KLF14
+            var input4 = document.getElementById('input4').value;//MIR29B2CHG
+            var input5 = document.getElementById('input5').value;//TRIM59
+            var a_methyl1 = 0;//EVOLV2
+            var a_methyl2 = 0;//FHL2
+            var a_methyl3 = 0;//KLF14
+            var a_methyl4 = 0;//MIR29B2CHG
+            var a_methyl5 = 0;//TRIM59
+            var blood = 0;
+            var saliva = 0;//Saliva
+            var tcmodel = 0;//Tissue-combined model
+            //계산
+            // 3130
+            // 3500
+            // SeqStudio
+            if(ce_option == '3130'){
+                //blood : 8.052+55.673*input1+47.141*input2+62.87*input3-29.075*input4+23.671*input5
+                blood = 8.052+55.673*input1+47.141*input2+62.87*input3-29.075*input4+23.671*input5
+                //saliva : 7.527+47.078*input1+42.389*input2+48.479*input3-28.159*input4+41.281*input5
+                saliva = 7.527+47.078*input1+42.389*input2+48.479*input3-28.159*input4+41.281*input5
+                //tcmodel : -3.447+44.59*input1+50.188*input2+49.747*input3-17.131*input4+43.22*input5
+                tcmodel = -3.447+44.59*input1+50.188*input2+49.747*input3-17.131*input4+43.22*input5
+            }else if(ce_option == '3500'){
+                //a_methyl 계산
+                a_methyl1 = 0.07+1.05*input1;
+                a_methyl2 = 0.06+1.07*input2;
+                a_methyl3 = 0.00464+1.53*input3;
+                a_methyl4 = 0.23+0.81*input4;
+                a_methyl5 = 0.05+0.9*input5;
+                blood = 8.052+55.673*a_methyl1+47.141*a_methyl2+62.87*a_methyl3+(-29.075)*a_methyl4+23.671*a_methyl5
+                saliva = 7.527+47.078*a_methyl1+42.389*a_methyl2+48.479*a_methyl3-28.159*a_methyl4+41.281*a_methyl5
+                tcmodel = -3.447+44.59*a_methyl1+50.188*a_methyl2+49.747*a_methyl3-17.131*a_methyl4+43.22*a_methyl5
+            }else if(ce_option == 'SeqStudio'){
+                //a_methyl 계산
+                a_methyl1 = 0.11+1.13*input1;
+                a_methyl2 = 0.08+1.24*input2;
+                a_methyl3 = 0.00546+1.69*input3;
+                a_methyl4 = 0.29+0.75*input4;
+                a_methyl5 = 0.06+1.1*input5;
+                //아래 식 3500과 동일
+                blood = 8.052+55.673*a_methyl1+47.141*a_methyl2+62.87*a_methyl3+(-29.075)*a_methyl4+23.671*a_methyl5
+                saliva = 7.527+47.078*a_methyl1+42.389*a_methyl2+48.479*a_methyl3-28.159*a_methyl4+41.281*a_methyl5
+                tcmodel = -3.447+44.59*a_methyl1+50.188*a_methyl2+49.747*a_methyl3-17.131*a_methyl4+43.22*a_methyl5
+            }else{
+            }
+            try{
+                document.getElementById('a_methyl1').value = a_methyl1.toFixed(4);
+                document.getElementById('a_methyl2').value = a_methyl2.toFixed(4);
+                document.getElementById('a_methyl3').value = a_methyl3.toFixed(4);
+                document.getElementById('a_methyl4').value = a_methyl4.toFixed(4);
+                document.getElementById('a_methyl5').value = a_methyl5.toFixed(4);
+            }catch{
+            }
+            document.getElementById('blood').value = blood.toFixed(2);
+            document.getElementById('saliva').value = saliva.toFixed(2);
+            document.getElementById('tcmodel').value = tcmodel.toFixed(2);
+        }
+
+        //Semen Model
         //46.24+(-51.9)*cg06304190+(-17.8)*cg12837463+54.1*cg06979108
         function age_prediction(){
             var cg06304190 = document.getElementById('cg06304190').value;

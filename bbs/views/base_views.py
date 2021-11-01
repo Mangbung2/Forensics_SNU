@@ -45,7 +45,19 @@ def detail(request, question_id):
     )
 
 def function(request):
-    return render(
+        ce_option = request.GET.get('ce_option', '')
+        #CE Option  
+        if ce_option == '3130':
+            print("3130")
+        elif ce_option == '3500':
+            print("3500")
+        elif ce_option == 'SeqStudio':
+            print("SeqStudio")
+        else:
+            print(ce_option)
+        context = {'ce_option':ce_option}
+        return render(
         request,
-        'bbs/function.html'
+        'bbs/function.html',
+        context
     )

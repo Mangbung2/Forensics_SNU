@@ -31,8 +31,10 @@
                         {% if question.answer_set.count > 0 %}
                         <comment style="color: tomato;">[{{question.answer_set.count}}]</comment> 
                         {% endif %}
-                        <br>
-                        {{question.content|truncatechars:20}}
+                        <!-- 내용 미리보기
+                            <br>
+                        {{question.content|truncatechars:20}} 
+                        -->
                     </a>
                     <p class="post-meta">
                         Posted by

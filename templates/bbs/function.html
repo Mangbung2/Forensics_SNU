@@ -3,126 +3,142 @@
 {% block content %}
 
     <!--메인콘텐츠 시작-->
+    <!--함수선택Navbar-->
     <div class="container px-4 px-lg-5" style="margin-top: 10px;">
-        <div class="card">
-            <div class="card-body" style="overflow: auto;padding-top: 0px;">
-            <!--Blood-saliva-buccal swab models INPUT TABLE-->
-            <table class="table table-bordered" style="margin-top: 10px;">
-                <caption style="color:black; font-weight: bold; caption-side: top;padding-top: 0px;">
-                    Blood-saliva-buccal swab models
-                </caption>
-                <thead>
-                <tr align ="center">
-                    <th scope="col">        
-                    </th>
-                    <th scope="col" colspan="2">ELOVL2</th>
-                    <th scope="col" colspan="2">FHL2</th>
-                    <th scope="col" colspan="2">KLF14</th>
-                    <th scope="col" colspan="2">MIR29B2CHG</th>
-                    <th scope="col" colspan="2">TRIM59	</th>
-                </tr>
-                <tr align ="center"">
-                    <th scope="col">        
-                        <!--방식 선택-->
-                        <!--ce_option-->
-                        <select class="form-control ce_option" style="width:fit-content; font-size: 10px;">
-                            <option value="CE_Option" {% if ce_option == 'CE_Option' %}selected{% endif %}>CE Option</option>
-                            <option value="3130" {% if ce_option == '3130' %}selected{% endif %}>3130</option>
-                            <option value="3500" {% if ce_option == '3500' %}selected{% endif %}>3500</option>
-                            <option value="SeqStudio" {% if ce_option == 'SeqStudio' %}selected{% endif %}>SeqStudio</option>
-                        </select>
-                    </th>
-                    <th scope="col">Input</th>
-                    <th scope="col">A.methyl.</th>
-                    <th scope="col">Input</th>
-                    <th scope="col">A.methyl.</th>
-                    <th scope="col">Input</th>
-                    <th scope="col">A.methyl.</th>
-                    <th scope="col">Input</th>
-                    <th scope="col">A.methyl.</th>
-                    <th scope="col">Input</th>
-                    <th scope="col">A.methyl.</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr align ="center"><!--값들input, A.methyl 1~5-->
-                    <th scope="row">input</th>
-                    <td><input type="number" id="input1" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
-                    <td><input type="number" id="a_methyl1" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
-                    <td><input type="number" id="input2" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
-                    <td><input type="number" id="a_methyl2" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
-                    <td><input type="number" id="input3" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
-                    <td><input type="number" id="a_methyl3" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
-                    <td><input type="number" id="input4" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
-                    <td><input type="number" id="a_methyl4" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
-                    <td><input type="number" id="input5" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
-                    <td><input type="number" id="a_methyl5" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
-                </tr>
-                </tbody>
-            </table>
-                <!--Blood-saliva-buccal swab models 실행-->
-                <button type="button" class="btn btn-outline-info" onclick="Bsbsmodels()">calculate</button>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <!--Blood-saliva-buccal swab models 함수시작-->
+                <div class="card">
+                    <div class="card-body" style="overflow: auto;padding-top: 0px;">
+                    <!--Blood-saliva-buccal swab models INPUT TABLE-->
+                    <table class="table table-bordered" style="margin-top: 10px;">
+                        <caption style="color:black; font-weight: bold; caption-side: top;padding-top: 0px;">
+                            Blood-saliva-buccal swab models
+                        </caption>
+                        <thead>
+                        <tr align ="center">
+                            <th scope="col">        
+                            </th>
+                            <th scope="col" colspan="2">ELOVL2</th>
+                            <th scope="col" colspan="2">FHL2</th>
+                            <th scope="col" colspan="2">KLF14</th>
+                            <th scope="col" colspan="2">MIR29B2CHG</th>
+                            <th scope="col" colspan="2">TRIM59	</th>
+                        </tr>
+                        <tr align ="center"">
+                            <th scope="col">        
+                                <!--방식 선택-->
+                                <!--ce_option-->
+                                <select class="form-control ce_option" style="width:fit-content; font-size: 10px;">
+                                    <option value="CE_Option" {% if ce_option == 'CE_Option' %}selected{% endif %}>CE Option</option>
+                                    <option value="3130" {% if ce_option == '3130' %}selected{% endif %}>3130</option>
+                                    <option value="3500" {% if ce_option == '3500' %}selected{% endif %}>3500</option>
+                                    <option value="SeqStudio" {% if ce_option == 'SeqStudio' %}selected{% endif %}>SeqStudio</option>
+                                </select>
+                            </th>
+                            <th scope="col">Input</th>
+                            <th scope="col">A.methyl.</th>
+                            <th scope="col">Input</th>
+                            <th scope="col">A.methyl.</th>
+                            <th scope="col">Input</th>
+                            <th scope="col">A.methyl.</th>
+                            <th scope="col">Input</th>
+                            <th scope="col">A.methyl.</th>
+                            <th scope="col">Input</th>
+                            <th scope="col">A.methyl.</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr align ="center"><!--값들input, A.methyl 1~5-->
+                            <th scope="row">input</th>
+                            <td><input type="number" id="input1" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                            <td><input type="number" id="a_methyl1" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                            <td><input type="number" id="input2" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                            <td><input type="number" id="a_methyl2" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                            <td><input type="number" id="input3" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                            <td><input type="number" id="a_methyl3" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                            <td><input type="number" id="input4" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                            <td><input type="number" id="a_methyl4" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                            <td><input type="number" id="input5" placeholder="0" value="0" style="width: 50px; font-size: 9px;"></td>
+                            <td><input type="number" id="a_methyl5" placeholder="0" value="0" style="width: 60px; font-size: 9px;" readonly></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                        <!--Blood-saliva-buccal swab models 실행-->
+                        <button type="button" class="btn btn-outline-info" onclick="Bsbsmodels()">calculate</button>
 
-        <!--RESULT TABLE-->
-        <table class="table table-bordered" style="margin-top: 10px;">
-            <caption style="color:black; font-weight: bold; caption-side: top;">
-                Output-Adjusted Model
-            </caption>
-            <thead>
-            <tr align ="center">
-                <th scope="col" colspan="3">Estimated Age (years)</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr align ="center">
-                <td>blood</td>
-                <td>Saliva</td>
-                <td>Tissue-combined model</td>
-            </tr>
-            <tr align ="center">
-                <td><input type="number" id="blood" placeholder="blood" readonly></td>
-                <td><input type="number" id="saliva" placeholder="Saliva" readonly></td>
-                <td><input type="number" id="tcmodel" placeholder="Tissue-combined model" readonly></td>
-            </tr>
-            </tbody>
-        </table>
+                <!--RESULT TABLE-->
+                <table class="table table-bordered" style="margin-top: 10px;">
+                    <caption style="color:black; font-weight: bold; caption-side: top;">
+                        Output-Adjusted Model
+                    </caption>
+                    <thead>
+                    <tr align ="center">
+                        <th scope="col" colspan="3">Estimated Age (years)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr align ="center">
+                        <td>blood</td>
+                        <td>Saliva</td>
+                        <td>Tissue-combined model</td>
+                    </tr>
+                    <tr align ="center">
+                        <td><input type="number" id="blood" placeholder="blood" readonly></td>
+                        <td><input type="number" id="saliva" placeholder="Saliva" readonly></td>
+                        <td><input type="number" id="tcmodel" placeholder="Tissue-combined model" readonly></td>
+                    </tr>
+                    </tbody>
+                </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    
-
-    <div class="container px-4 px-lg-5" style="margin-top: 10px;">
-        <div class="card">
-            <div class="card-body" style="overflow: auto; padding-top: 0px;">
-        <!--Semen Model INPUT TABLE-->
-        <!--46.24+(-51.9)*cg06304190+(-17.8)*cg12837463+54.1*cg06979108-->
-        <table class="table table-bordered" style="margin-top: 10px;">
-            <caption style="color:black; font-weight: bold; caption-side: top;padding-top: 0px;">
-                Semen Model
-            </caption>
-            <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">cg06304190</th>
-                <th scope="col">cg12837463</th>
-                <th scope="col">cg06979108</th>
-                <th scope="col">age_prediction</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">input</th>
-                <td><input type="number" id="cg06304190" placeholder="0" value="0"></td>
-                <td><input type="number" id="cg12837463" placeholder="0" value="0"></td>
-                <td><input type="number" id="cg06979108" placeholder="0" value="0"></td>
-                <td><input type="number" id="semenmodel" placeholder="age_prediction" readonly></td>
-            </tr>
-            </tbody>
-        </table>
-        <button type="button" class="btn btn-outline-info" onclick="semenmodel()">calculate</button>
+            <!--Blood-saliva-buccal swab models 함수끝-->
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <!--Semen Model 함수시작-->
+                    <div class="card">
+                        <div class="card-body" style="overflow: auto; padding-top: 0px;">
+                    <!--Semen Model INPUT TABLE-->
+                    <!--46.24+(-51.9)*cg06304190+(-17.8)*cg12837463+54.1*cg06979108-->
+                    <table class="table table-bordered" style="margin-top: 10px;">
+                        <caption style="color:black; font-weight: bold; caption-side: top;padding-top: 0px;">
+                            Semen Model
+                        </caption>
+                        <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">cg06304190</th>
+                            <th scope="col">cg12837463</th>
+                            <th scope="col">cg06979108</th>
+                            <th scope="col">age_prediction</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">input</th>
+                            <td><input type="number" id="cg06304190" placeholder="0" value="0"></td>
+                            <td><input type="number" id="cg12837463" placeholder="0" value="0"></td>
+                            <td><input type="number" id="cg06979108" placeholder="0" value="0"></td>
+                            <td><input type="number" id="semenmodel" placeholder="age_prediction" readonly></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-outline-info" onclick="semenmodel()">calculate</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+            <!--Semen Model 함수끝-->
+          </div>
+    <!--유형검색폼-->
     <form id="searchForm" method="get" action="{% url 'bbs:function' %}">
         <input type="hidden" id="ce_option" name="ce_option" value="{{ ce_option }}">
     </form>

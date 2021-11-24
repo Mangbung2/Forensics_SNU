@@ -15,11 +15,13 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = [
             'subject',
-            'content'
+            'content',
+            'category',
         ]
         labels = {
             'subject':'제목',
             'content':'내용',
+            'category':'카테고리',
         }
         
 

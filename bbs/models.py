@@ -32,11 +32,16 @@ def save_user_profile(sender, instance, **kwargs):
         Profile.objects.create(user=instance)
     
 class Question(models.Model):
+    #author : 작성자
+    #subject : 제목
+    #content : 내용
+    #category : 카테고리유형 ex)notice : 공지 , post : 게시글, default : post
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200)
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
+    category = models.CharField(max_length=200, default='post')
 
     def __str__(self):
         return self.subject

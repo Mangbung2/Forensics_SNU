@@ -3,10 +3,11 @@
 {% block content %}
 <div class="container px-4 px-lg-5" style="margin-top: 10px;">
     <div class="row justify-content-between my-3">
+        <!-- 최신순, 댓글순 정렬-->
         <div class="col-2">
             <select class="form-control so" style="width: 100px;">
                 <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
-                <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
+                <option value="popular" {% if so == 'popular' %}selected{% endif %}>댓글순</option>
             </select>
         </div>
         <div class="col-4 input-group">
@@ -17,6 +18,44 @@
         </div>
     </div>
     <!--메인콘텐츠 시작-->
+    
+    <!--공지사항 최근 3개 리스트-->
+    <div class="container">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-12" style="font-weight: bold;">
+                <!-- Post preview-->
+                {% if notice_list %}
+                {% for notice in notice_list %}
+                <div class="post-preview">
+                    <a href="{% url 'bbs:detail' notice.id %}" style="text-decoration: none;">
+                        <content-title style="font-size:20px; font-weight: bolder;">{{notice.subject}}</content-title>
+                        {% if notice.answer_set.count > 0 %}
+                        <comment style="color: tomato;">[{{notice.answer_set.count}}]</comment> 
+                        {% endif %}
+                        <!-- 내용 미리보기
+                            <br>
+                        {{notice.content|truncatechars:20}} 
+                        -->
+                    </a>
+                    <p class="post-meta" style="font-size:15px; font-weight: bolder;">
+                        Posted by
+                        {{notice.author.username}}
+                        {{notice.create_date}}
+                    </p>
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+                {% endfor %}
+                {% else %}
+                <div class="post-preview">
+                    <h1>게시글이 없습니다.</h1>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!--전체 게시글 최근 10개 리스트-->
     <div class="container">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-12" style="font-weight: bold;">
@@ -24,10 +63,11 @@
                 {% if question_list %}
                 {% for question in question_list %}
                 <div class="post-preview">
-                    {{question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}}
+                    <h6>{{question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}}.
+                        <span class="badge badge-secondary">{{question.category}}</span>
+                    </h6>
                     <a href="{% url 'bbs:detail' question.id %}" style="text-decoration: none;">
-                        <br>
-                        <content-title style="font-size:30px;">{{question.subject}}</content-title>
+                        <content-title style="font-size:20px; font-weight: lighter;">{{question.subject}}</content-title>
                         {% if question.answer_set.count > 0 %}
                         <comment style="color: tomato;">[{{question.answer_set.count}}]</comment> 
                         {% endif %}
@@ -36,7 +76,7 @@
                         {{question.content|truncatechars:20}} 
                         -->
                     </a>
-                    <p class="post-meta">
+                    <p class="post-meta" style="font-size:15px; font-weight: lighter;">
                         Posted by
                         {{question.author.username}}
                         {{question.create_date}}
@@ -69,9 +109,11 @@
             </a>
         </li>
         {% endif %}
+
         <!--페이지 리스트-->
         {% for page_number in question_list.paginator.page_range %}
-        {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+        <!--좌우 페이지네이션 수-->
+        {% if page_number >= question_list.number|add:-3 and page_number <= question_list.number|add:3 %}
             {% if page_number == question_list.number %}
             <li class="page-item active" aria-current="page">
                 <a class="page-link" data-page="{{page_number}}" href="#">
@@ -104,8 +146,8 @@
         {% endif %}
     </ul>
     <!--페이지네이션 끝-->
-    <!--5등급이상 글쓰기 가능-->
-    {% if user.is_authenticated and user.profile.level > 4 %}
+    <!--3등급이상 글쓰기 가능-->
+    {% if user.is_authenticated and user.profile.level > 3 %}
     <a href="{% url 'bbs:question_create' %}" class="btn btn-primary">
         게시글 등록하기
     </a>

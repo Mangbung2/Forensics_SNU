@@ -29,6 +29,15 @@
             <input type="text" class="form-control" name="subject" id="subject" placeholder="제목입력" value="{{ form.subject.value|default_if_none:'' }}">
         </div>
         <div class="form-group">
+            <label for="category">
+                카테고리
+            </label>
+            <select class="form-control" name="category" id="category" style="width: fit-content;">
+                <option value="notice"{% if form.category.value == 'notice' %}selected{% endif %}>notice</option>
+                <option value="post"{% if form.category.value == 'post' %}selected{% endif %}>post</option>
+            </select>              
+        </div>
+        <div class="form-group">
             <label for="content">
                 내용
             </label>

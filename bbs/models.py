@@ -35,7 +35,7 @@ class Question(models.Model):
     #author : 작성자
     #subject : 제목
     #content : 내용
-    #category : 카테고리유형 ex)notice : 공지 , post : 게시글, default : post
+    #category : 카테고리유형 ex)notice : 공지사항 , post : 게시글, default : post
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200)
     content = models.TextField()

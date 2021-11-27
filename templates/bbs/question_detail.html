@@ -2,9 +2,7 @@
 {% load bbs_filter %}
 {% block content %}
 <div class="container px-4 px-lg-5" style="margin-top: 10px;">
-    <h2 class="vorder-bottom py-2">
-        {{question.subject}}
-    </h2>
+    <h1>{{question.subject}} <span class="badge badge-info" style="font-size: 20px;">{{question.category}}</span></h1>
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text">

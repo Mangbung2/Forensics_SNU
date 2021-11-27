@@ -123,6 +123,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR/'static',
 ]
+import os 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #로그인 성공시 이동할 URL
 LOGIN_REDIRECT_URL = '/'

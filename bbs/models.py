@@ -41,8 +41,8 @@ class Question(models.Model):
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
+    uploadedFile = models.FileField(upload_to = "", null=True, blank=True)
     category = models.CharField(max_length=200, default='post')
-
     def __str__(self):
         return self.subject
 

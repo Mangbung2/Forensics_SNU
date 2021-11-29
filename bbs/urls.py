@@ -1,6 +1,8 @@
 from os import name
 from django.urls import path
 from .views import base_views, question_views, answer_views, comment_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'bbs'
 
@@ -29,4 +31,4 @@ urlpatterns = [
     path('comment/create/answer/<int:answer_id>/', comment_views.comment_create_answer, name='comment_create_answer'),
     path('comment/modify/answer/<int:comment_id>/', comment_views.comment_modify_answer, name='comment_modify_answer'),
     path('comment/delete/answer/<int:comment_id>/', comment_views.comment_delete_answer, name='comment_delete_answer'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,7 +5,7 @@
     <h5 class="my-3 border-bottom pb-2">
         게시글 등록
     </h5>
-    <form method="post" class="post-form my-3">
+    <form method="post" class="post-form my-3" enctype="multipart/form-data">
         {% csrf_token %}
         <!--오류표시 시작-->
         {% if form.errors %}
@@ -45,6 +45,8 @@
             </label>
             <textarea class="form-control" name="content" id="content" placeholder="내용입력" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
         </div>
+        <input type="file" name="uploadedFile" id="uploadedFile" />
+        <hr>
         <button type="submit" class="btn btn-primary">
             저장하기
         </button>

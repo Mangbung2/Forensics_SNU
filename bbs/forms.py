@@ -17,11 +17,13 @@ class QuestionForm(forms.ModelForm):
             'subject',
             'content',
             'category',
+            'uploadedFile',
         ]
         labels = {
             'subject':'제목',
             'content':'내용',
             'category':'카테고리',
+            'uploadedFile':'파일업로드'
         }
         
 

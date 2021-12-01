@@ -45,7 +45,13 @@
             </label>
             <textarea class="form-control" name="content" id="content" placeholder="내용입력" rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
         </div>
-        <input type="file" name="uploadedFile" id="uploadedFile" />
+        <div class="card my-3">
+            <div class="card-body"style="padding: 10px;">
+            파일 업로드
+            <hr>
+            {{form.uploadedFile|default_if_none:'' }}
+        </div>
+        </div>
         <hr>
         <button type="submit" class="btn btn-primary">
             저장하기

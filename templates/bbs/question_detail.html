@@ -8,17 +8,26 @@
             <div class="card-text">
                 {{question.content|mark}}
             </div>
-            <div class="d-flex justify-content-end">
-                <div class="badge badge-light p-2 text-left">
+            <div class="card my-3">
+                <div class="d-flex justify-content-between" style="padding: 3px; align-items: center;">
+                    <div>
+                {% if question.uploadedFile %}
+                    <b style="height: fit-content;">File</b> : <a href="{{question.uploadedFile.url}}" class="btn btn-success" style="padding: 3px; margin-left: 3px; height: fit-content;"><b>{{question.uploadedFile.name}}</b></a>
+                {% else %}
+                    <b style="height: fit-content;">File</b>  : <a href="#" class="btn btn-success" style="padding: 3px; margin-left: 3px; height: fit-content;"><b>파일이 없습니다.</b></a>
+                {% endif %}
+                    </div>
+                    <div class="badge badge-light p-2 text-left" style="margin-left: 10px;">
                         작성자 : {{question.author.username}}<br>
                         작성일시 : {{question.create_date}}
                     {% if question.modify_date %}
                         <br>수정일시 : {{question.modify_date}}
                     {% endif %}
+                    </div>
                 </div>
             </div>
             {% if request.user == question.author %}
-            <div class=",y-3">
+            <div class="y-3">
                 <a href="{% url 'bbs:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">
                     수정
                 </a>

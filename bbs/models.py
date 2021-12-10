@@ -36,7 +36,7 @@ class Question(models.Model):
     #subject : 제목
     #content : 내용
     #category : 카테고리유형 ex)notice : 공지사항 , post : 게시글, default : post
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     subject = models.CharField(max_length=200)
     content = models.TextField()
     create_date = models.DateTimeField()
@@ -47,16 +47,16 @@ class Question(models.Model):
         return self.subject
 
 class Answer(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    question = models.ForeignKey(Question, on_delete=models.DO_NOTHING)
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
 
 class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     content = models.TextField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
-    question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, null=True, blank=True, on_delete=CASCADE)
+    question = models.ForeignKey(Question, null=True, blank=True, on_delete=models.DO_NOTHING)
+    answer = models.ForeignKey(Answer, null=True, blank=True, on_delete=models.DO_NOTHING)

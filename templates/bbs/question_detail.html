@@ -19,9 +19,9 @@
                     </div>
                     <div class="badge badge-light p-2 text-left" style="margin-left: 10px;">
                         작성자 : {{question.author.username}}<br>
-                        작성일시 : {{question.create_date}}
+                        작성일시 : {{question.create_date| date:'Y-m-d,H:i' }}
                     {% if question.modify_date %}
-                        <br>수정일시 : {{question.modify_date}}
+                        <br>수정일시 : {{question.modify_date| date:'Y-m-d,H:i' }}
                     {% endif %}
                     </div>
                 </div>

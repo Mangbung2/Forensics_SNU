@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load bbs_filter %}
 {% block content %}
+
 <div class="container px-4 px-lg-5" style="margin-top: 10px;">
     <h3>{{question.subject}} <span class="badge badge-info" style="font-size: 20px;">{{question.category}}</span></h3>
     <div class="card my-3">
@@ -12,7 +13,7 @@
                 <div class="d-flex justify-content-between" style="padding: 3px; align-items: center;">
                     <div>
                 {% if question.uploadedFile %}
-                    <b style="height: fit-content;">File</b> : <a href="{{question.uploadedFile.url}}" class="btn btn-success" style="padding: 3px; margin-left: 3px; height: fit-content;"><b>{{question.uploadedFile.name}}</b></a>
+                    <b style="height: fit-content;">File</b> : <a href="{{question.uploadedFile.url}}"  class="btn btn-success" style="padding: 3px; margin-left: 3px; height: fit-content;"><b>{{question.uploadedFile.name}}</b></a>
                 {% else %}
                     <b style="height: fit-content;">File</b>  : <a href="#" class="btn btn-success" style="padding: 3px; margin-left: 3px; height: fit-content;"><b>파일이 없습니다.</b></a>
                 {% endif %}

@@ -44,7 +44,7 @@ def question_modify(request, question_id):
             a = a.read()
             a = len(a)
             size = a/1024/1024
-            if size > 50:
+            if size > 30:
                 messages.error(request, '파일 사이즈가 너무 큽니다.(현재 %.2fMB)'%size)
                 return redirect(request.path, question_id=question.id)
         if form.is_valid():

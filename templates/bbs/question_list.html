@@ -147,8 +147,8 @@
         {% endif %}
     </ul>
     <!--페이지네이션 끝-->
-    <!--3등급이상 글쓰기 가능-->
-    {% if user.is_authenticated and user.profile.level >= 3 %}
+    <!--1등급이상 글쓰기 가능-->
+    {% if user.is_authenticated and user.profile.level >= 1 %}
     <a href="{% url 'bbs:question_create' %}" class="btn btn-primary">
         게시글 등록하기
     </a>

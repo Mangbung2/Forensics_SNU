@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bbs_filter %}
+{% block content %}
+
+    <!--메인콘텐츠 시작-->
+    <!--함수선택Navbar-->
+    <div class="container px-4 px-lg-5" style="margin-top: 10px;">
+        <div class="card">
+            <div class="card-header">
+                <h3>My Page</h3>
+            </div>
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item"><h5>아이디 : {{user.username}}</h5></li>
+                <li class="list-group-item"><h5>레벨 : {{user.profile.level}}</h5></li>
+                <li class="list-group-item"><h5>이메일 : {{user.email}}</h5></li>
+                <li class="list-group-item"><h5>가입일자 : {{user.date_joined | date:'Y-m-d H시i분'}}</h5></li>
+              </ul>
+              <hr>
+              <a href="{% url 'bbs:index' %}" class="btn btn-primary">돌아가기</a>
+            </div>
+          </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

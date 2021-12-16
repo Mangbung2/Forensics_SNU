@@ -65,9 +65,11 @@
             </div>
             {% endif %}
             <div>
-                <a href="{% url 'bbs:comment_create_question' question.id %}" class="small">
-                    <small>댓글 추가...</small>
-                </a>
+                {% if user.is_authenticated%}
+                <a href="{% url 'bbs:comment_create_question' question.id %}" class="badge badge-secondary"><small>댓글 추가...</small></a>
+                {%else%}
+                <span class="badge badge-secondary"><small>댓글 추가...</small></span >
+                {% endif %}
             </div>
         </div>
     </div>
@@ -135,11 +137,11 @@
             </div>
             {% endif %}
             <div>
-                <a href="{% url 'bbs:comment_create_answer' answer.id %}" class="small">
-                    <small>
-                        댓글 추가...
-                    </small>
-                </a>
+                {% if user.is_authenticated%}
+                <a href="{% url 'bbs:comment_create_answer' answer.id %}" class="badge badge-secondary"><small>댓글 추가...</small></a>
+                {%else%}
+                <span class="badge badge-secondary"><small>댓글 추가...</small></span >
+                {% endif %}
             </div>
             <!--답변댓글끝-->
         </div>
@@ -164,7 +166,11 @@
         <div class="form-group">
             <textarea name="content" id="content" placeholder="답변내용" {% if not user.is_authenticated %} disabled {% endif %} class="form-control" rows="10"></textarea>
         </div>
+        {% if user.is_authenticated%}
         <input type="submit" value="답변 등록" class="btn btn-primary">
+        {%else%}
+        <input type="submit" value="답변 등록" class="btn btn-primary" disabled>
+        {% endif %}
     </form>
 </div>
 {% endblock %}

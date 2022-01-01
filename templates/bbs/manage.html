@@ -11,39 +11,34 @@
             </div>
             <div class="card-body">
               <table class="table table-hover">
+                유저 정보
                 <thead>
                   <tr>
-                    <th scope="col"></th>
-                    <th scope="col" width=75%>내 정보</th>
+                    <th scope="col">아이디</th>
+                    <th scope="col">레벨</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">가입 일자</th>
                   </tr>
                 </thead>
                 <tbody>
+                  {% for user_info in user_list %}
                   <tr>
-                    <th scope="row">아이디</th>
-                    <td colspan="2">{{user.username}}</td>
+                    <td>{{user_info.username}}</td>
+                    <td>{{user_info.profile.level}}</td>
+                    <td>{{user_info.email}}</td>
+                    <td>{{user_info.date_joined | date:'Y-m-d H시i분'}}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">레벨</th>
-                    <td>{{user.profile.level}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">이메일</th>
-                    <td>{{user.email}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">가입일자</th>
-                    <td>{{user.date_joined | date:'Y-m-d H시i분'}}</td>
-                  </tr>
+                  {% endfor %}
                 </tbody>
               </table>
               <hr>
               <a href="{% url 'bbs:index' %}" class="btn btn-primary">돌아가기</a>
-              {% if user.is_authenticated and user.profile.level >= 6 %}
+              {% if user.is_authenticated and user.profile.level >= 7 %}
               <a href="/admin/auth/user" class="btn btn-danger">
                   관리자 페이지 가기
-                </a>
+              </a>
               {% endif %}
-              <a href="{% url 'bbs:manage' %}" class="btn btn-primary">테스트</a>
+              <h6>(level 7 이상만 정보를 수정할 수 있습니다.)</h6>
             </div>
           </div>
     </div>

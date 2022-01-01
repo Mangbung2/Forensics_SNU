@@ -12,6 +12,7 @@ urlpatterns = [
     path('<int:question_id>/', base_views.detail, name='detail'),
     path('intro/', base_views.intro, name='intro'),
     path('mypage/', base_views.mypage, name='mypage'),
+    path('manage/', base_views.manage, name='manage'),
     #functions
     path('function/', base_views.function, name='function'),
 

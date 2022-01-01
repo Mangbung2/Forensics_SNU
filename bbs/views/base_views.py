@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.db.models import Q, Count
 from django.contrib.auth.decorators import login_required
 from ..models import Question
+from django.contrib.auth import get_user_model
 
 
 def index(request):
@@ -78,4 +79,14 @@ def mypage(request):
     return render(
         request,
         'bbs/mypage.html'
+    )
+
+@login_required(login_url='common:login')
+def manage(request):
+    user_list = get_user_model().objects.all()
+    context = {'user_list':user_list}
+    return render(
+        request,
+        'bbs/manage.html',
+        context
     )

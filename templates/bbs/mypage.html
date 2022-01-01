@@ -38,12 +38,9 @@
               </table>
               <hr>
               <a href="{% url 'bbs:index' %}" class="btn btn-primary">돌아가기</a>
-              {% if user.is_authenticated and user.profile.level >= 6 %}
-              <a href="/admin/auth/user" class="btn btn-danger">
-                  관리자 페이지 가기
-                </a>
-              {% endif %}
-              <a href="{% url 'bbs:manage' %}" class="btn btn-primary">테스트</a>
+              <a href="{% url 'bbs:manage' %}" class="btn btn-danger">
+                  유저 조회 페이지 가기
+              </a>
             </div>
           </div>
     </div>

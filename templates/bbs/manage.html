@@ -11,7 +11,7 @@
             </div>
             <div class="card-body">
               <table class="table table-hover">
-                유저 정보
+                &nbsp; 유저 정보
                 <thead>
                   <tr>
                     <th scope="col">아이디</th>
@@ -37,8 +37,13 @@
               <a href="/admin/auth/user" class="btn btn-danger">
                   관리자 페이지 가기
               </a>
-              {% endif %}
+              {% else %}
+              <a  href="#" class="btn btn-danger disabled"  role="button">
+                관리자 페이지 가기
+              </a>
               <h6>(level 7 이상만 정보를 수정할 수 있습니다.)</h6>
+              {% endif %}
+              
             </div>
           </div>
     </div>
